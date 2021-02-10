@@ -1,0 +1,2 @@
+cd kapla Tests
+pwd
