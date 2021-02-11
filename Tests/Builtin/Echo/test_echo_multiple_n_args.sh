@@ -1,0 +1,1 @@
+echo -n -n -nnnn -nnnnm ; echo test
