@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 14:54:17 by fgalaup           #+#    #+#              #
-#    Updated: 2021/02/11 11:27:07 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/02/11 11:46:07 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -177,12 +177,23 @@ function run ()
 	find ./Tests -type d -exec sh -c 'testings "$0"' {} \;
 }
 
-# Delete prevous log if exist
-rm -f ./result.log
-echo 0 > ./temps/faild
-echo 0 > ./temps/succes
+
+function setup_tester ()
+{
+	# Creating temps directory if dosent exit
+	if [ ! -d "./temps" ]; then
+		mkdir temps
+	fi
+
+	# Delete prevous log if exist
+	rm -f ./result.log
+	echo 0 > ./temps/faild
+	echo 0 > ./temps/succes
+}
+
 
 show_header
+setup_tester
 run
 show_summary
 
