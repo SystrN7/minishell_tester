@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 14:54:17 by fgalaup           #+#    #+#              #
-#    Updated: 2021/02/08 12:43:43 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/02/11 11:27:07 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@
 export TESTED_SHELL=../minishell
 export REFERENCE_SHELL=bash
 
-
+# TODO : Add individual function test.
+# TODO : Add sandbox for timeout.
 
 # Reset
 export Color_Off='\033[0m'       # Text Reset
@@ -92,6 +93,7 @@ export On_IPurple='\033[0;105m'  # Purple
 export On_ICyan='\033[0;106m'    # Cyan
 export On_IWhite='\033[0;107m'   # White
 
+
 function show_header ()
 {
 	# echo " ██████   ██████ █████ ██████   █████ █████  █████████  █████   █████ ██████████ █████       █████      "
@@ -102,9 +104,25 @@ function show_header ()
 	# echo "  ███       ███   ███   ███    █████   ███  ███     ███  ███     ███   ███     █  ███      █  ███      █"
 	# echo " █████     █████ █████ █████    █████ █████  █████████  █████   █████ ██████████ ███████████ ███████████"
 	cat head.color;
-	echo " Made by fgalaup & clsaad.                                                                      ╔╦╗╔═╗╔═╗╔╦╗╔═╗╦═╗"
+	echo " Made by fgalaup.                                                                               ╔╦╗╔═╗╔═╗╔╦╗╔═╗╦═╗"
 	echo "                                                                                                 ║ ║╣ ╚═╗ ║ ║╣ ╠╦╝"
 	echo "                                                                                                 ╩ ╚═╝╚═╝ ╩ ╚═╝╩╚═"
+}
+
+function show_summary ()
+{
+	TEST_FAILD=(cat ./temps/faild)
+	if [ "$TEST_FAILD" = "0" ] 
+	then
+		echo $White $On_Green "TESTS PASS" $Color_Off
+	else
+		echo $White $On_Red "TEST(S) FAILD" $Color_Off
+		echo "For more information you can look result.log"
+	fi
+	
+	echo "TEST RESULT :"
+	echo "\t- Test failds : " $(cat ./temps/faild)
+	echo "\t- Test succes : " $(cat ./temps/succes)
 }
 
 
@@ -131,8 +149,13 @@ function test_case ()
 		cat $0 >> ./result.log
 		echo "\"\n\n--------------------------DIFF--------------------------" >> ./result.log
 		cat ./temps/diff >> ./result.log
+
+		TEST_TEMP=$(($(cat ./temps/faild)+1))
+		echo $TEST_TEMP > ./temps/faild
 	else
 		printf "$Green OK $Color_Off"
+		TEST_TEMP=$(($(cat ./temps/succes)+1)) > ./temps/succes
+		echo $TEST_TEMP > ./temps/succes
 	fi
 }
 
@@ -156,9 +179,12 @@ function run ()
 
 # Delete prevous log if exist
 rm -f ./result.log
+echo 0 > ./temps/faild
+echo 0 > ./temps/succes
 
 show_header
 run
+show_summary
 
 # if [ "$1" = "test" ]; then
 # 	test_case $2
