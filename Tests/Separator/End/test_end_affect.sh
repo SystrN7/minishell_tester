@@ -1,0 +1,1 @@
+TEST=TEST ; echo $TEST
