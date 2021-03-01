@@ -34,11 +34,11 @@ To report bug you can :
 
 ### Todo
 
-	- [x] Display summary of test results.
-	- [ ] Add sandbox for timeout.
-	- [ ] Fix tester to work with absolute path.
-	- [ ] Add leaks detection.
+ - [x] Display summary of test results.
+ - [ ] Add sandbox for timeout.
+ - [ ] Fix tester to work with absolute path.
+ - [ ] Add leaks detection.
 
-	- [ ] Add more test.
-	- [ ] Add more options and feature.
-	- [ ] Fix test to match with subject and test the tester.
+ - [ ] Add more test.
+ - [ ] Add more options and feature.
+ - [ ] Fix test to match with subject and test the tester.
