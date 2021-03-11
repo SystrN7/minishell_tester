@@ -8,7 +8,7 @@ echo ~
 unset ~
 echo $?
 echo ~
-HOME=~
+export HOME=~
 echo $HOME
 cd
 echo $?
