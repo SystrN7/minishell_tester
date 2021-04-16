@@ -1,1 +1,0 @@
-env make test dogs > /dev/null
