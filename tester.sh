@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+         #
+#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 14:54:17 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/16 11:25:37 by felix            ###   ########lyon.fr    #
+#    Updated: 2021/04/16 17:39:43 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ export TESTED_SHELL_NAME="minishell"
 
 export TESTED_SHELL=$TESTED_SHELL_DIR$TESTED_SHELL_NAME
 export REFERENCE_SHELL=/bin/bash
+
+export TEST_ENV="HOME=$HOME LANG=en_US.UTF-8 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin OLDPWD=/tmp PWD=$PWD USER=$USER __CF_USER_TEXT_ENCODING=0xE21A:0x0:0x0"
 
 # TODO : Add individual function test.
 # TODO : Add sandbox for timeout.
@@ -131,13 +133,15 @@ function show_summary ()
 
 function test_case ()
 {
-	# cat $0 | $TESTED_SHELL &> temps/tested;
-	cat $0 | ./bash &> temps/tested;
+	mv ./Bin/bash-test ./Bin/bash
+	cat $0 | env -i $TEST_ENV ./Bin/bash &> temps/tested;
 	echo "Return code of :" $? >> temps/tested;
+	mv ./Bin/bash ./Bin/bash-test
 
-	cat $0 | $REFERENCE_SHELL &> temps/reference;
+	mv ./Bin/bash-ref ./Bin/bash
+	cat $0 | env -i $TEST_ENV ./Bin/bash &> temps/reference;
 	echo "Return code of :" $? >> temps/reference;
-	REFERENCE_STATUS_CODE=$?
+	mv ./Bin/bash ./Bin/bash-ref
 
 	# return diff
 	diff -U 3 temps/reference temps/tested > temps/diff
@@ -196,7 +200,8 @@ function setup_tester ()
 	echo 0 > ./temps/succes
 
 	make -C $TESTED_SHELL_DIR > /dev/null
-	mv $TESTED_SHELL ./bash
+	cp $REFERENCE_SHELL ./Bin/bash-ref
+	mv $TESTED_SHELL ./Bin/bash-test
 }
 
 
