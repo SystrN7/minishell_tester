@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 14:54:17 by fgalaup           #+#    #+#              #
-#    Updated: 2021/02/11 11:46:07 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/16 11:25:37 by felix            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,11 @@
 
 # CONFIGURATION
 
-export TESTED_SHELL=../minishell
-export REFERENCE_SHELL=bash
+export TESTED_SHELL_DIR="../"
+export TESTED_SHELL_NAME="minishell"
+
+export TESTED_SHELL=$TESTED_SHELL_DIR$TESTED_SHELL_NAME
+export REFERENCE_SHELL=/bin/bash
 
 # TODO : Add individual function test.
 # TODO : Add sandbox for timeout.
@@ -128,7 +131,8 @@ function show_summary ()
 
 function test_case ()
 {
-	cat $0 | $TESTED_SHELL &> temps/tested;
+	# cat $0 | $TESTED_SHELL &> temps/tested;
+	cat $0 | ./bash &> temps/tested;
 	echo "Return code of :" $? >> temps/tested;
 
 	cat $0 | $REFERENCE_SHELL &> temps/reference;
@@ -187,8 +191,12 @@ function setup_tester ()
 
 	# Delete prevous log if exist
 	rm -f ./result.log
+	rm -f ./bash
 	echo 0 > ./temps/faild
 	echo 0 > ./temps/succes
+
+	make -C $TESTED_SHELL_DIR > /dev/null
+	mv $TESTED_SHELL ./bash
 }
 
 
