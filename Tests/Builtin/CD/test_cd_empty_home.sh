@@ -1,0 +1,1 @@
+pwd ; export HOME= ; cd ; pwd

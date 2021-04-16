@@ -1,6 +1,6 @@
-Env TEST=TEST
-eNv TEST=TEST
-enV TEST=TEST
-ENv TEST=TEST
-eNV TEST=TEST
-ENV TEST=TEST
+Env > /dev/null
+eNv > /dev/null
+enV > /dev/null
+ENv > /dev/null
+eNV > /dev/null
+ENV > /dev/null

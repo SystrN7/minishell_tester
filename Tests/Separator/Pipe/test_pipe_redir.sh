@@ -1,1 +1,1 @@
-echo "test" | > echo
+echo "test" | > ./temps/echo

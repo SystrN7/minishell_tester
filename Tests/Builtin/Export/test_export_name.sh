@@ -1,2 +1,2 @@
 export TEST
-env
+env | sort
