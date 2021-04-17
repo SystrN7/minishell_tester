@@ -1,1 +1,1 @@
-export | sort
+export | grep -v _ | grep -v SHLVL | sort

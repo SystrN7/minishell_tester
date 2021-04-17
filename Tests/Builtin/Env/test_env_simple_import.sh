@@ -1,2 +1,2 @@
 export TEST="52"
-env | sort
+env | grep TEST

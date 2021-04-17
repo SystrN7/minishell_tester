@@ -1,1 +1,1 @@
-unset -ghhgj
+unset .ghhgj

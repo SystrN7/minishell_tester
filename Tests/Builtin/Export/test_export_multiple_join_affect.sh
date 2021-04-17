@@ -1,0 +1,2 @@
+export TEST=TEST=TEST=TEST=TEST=TEST=TEST=TEST=TEST
+export | grep TEST

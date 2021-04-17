@@ -1,1 +1,1 @@
-TEST=test | echo $TEST
+export TEST=test | echo $TEST

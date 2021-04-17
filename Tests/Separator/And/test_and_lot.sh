@@ -1,1 +1,1 @@
-echo "hello" && echo -n " world" && echo " !"  && echo -n "I'am Unicorn" &&
+echo "hello" && echo -n " world" && echo " !"  && echo -n "I'am Unicorn"
