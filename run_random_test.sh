@@ -1,0 +1,1 @@
+find ./Random/ -type f -maxdepth 1 -exec sh -c 'cat $0 | ../minishell' {} \;
